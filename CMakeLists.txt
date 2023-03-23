@@ -48,3 +48,11 @@ add_custom_target(hello-world DEPENDS ${_OUTPUT} SOURCES ${_SRC})
 
 ###### hello-world-src #####
 add_executable(hello-world-src ${_SRC})
+
+##### tetris #####
+add_executable(tetris tetris.cpp)
+target_link_libraries(tetris PRIVATE ncursesw)
+
+##### snake #####
+add_executable(snake snake.cpp Snake.h Snake.cpp Map.h Map.cpp vec2.h vec2.cpp)
+target_link_libraries(snake PRIVATE ncursesw)
