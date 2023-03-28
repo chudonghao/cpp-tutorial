@@ -20,7 +20,8 @@
 /// 6. 表达式
 ///    1. 运算符
 ///    2. 访问变量
-///    3. 调用函数
+///    3. 访问成员变量
+///    4. 调用函数
 /// 7. 逻辑语句
 ///    1. 条件语句 if switch(case default break)
 ///    2. 循环语句 for while do..while -- continue break
