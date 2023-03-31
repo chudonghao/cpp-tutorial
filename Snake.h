@@ -9,9 +9,9 @@ class Map;
 
 enum SnakeStepResult {
   SNAKE_STEP_NORMAL,     // = 0
-  SNAKE_STEP_COLLISION,  // = last + 1 = 2
-  SNAKE_STEP_GOT_FOOD,   // = last + 1 = 3
-  SNAKE_STEP_TOO_LONG,   // = last + 1 = 4
+  SNAKE_STEP_COLLISION,  // = last + 1 = 1
+  SNAKE_STEP_GOT_FOOD,   // = last + 1 = 2
+  SNAKE_STEP_TOO_LONG,   // = last + 1 = 3
 };
 
 class Snake {
