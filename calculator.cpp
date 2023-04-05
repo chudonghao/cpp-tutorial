@@ -22,8 +22,11 @@ bool TakeNumber(const std::string &expr, double &opera, size_t &pos) {
       break;
     }
   }
+  if (!len) {
+    return false;
+  }
   opera = std::stod(expr.substr(begin, len));
-  return len;
+  return true;
 }
 
 bool TakeOp(const std::string &expr, char &op, size_t &pos) {
@@ -50,6 +53,11 @@ bool TestOp(const std::string &expr, char op, size_t pos) {
     return false;
   }
   return expr[pos] == op;
+}
+
+void ReportError(const std::string &expr, size_t pos, const std::string &message) {
+  std::cerr << expr << std::endl;
+  std::cerr << std::string(pos, ' ') << "^ " << message;
 }
 
 int GetPri(char op) {
@@ -127,8 +135,10 @@ double ExecExpr(const std::string &expr, size_t &pos) {
         std::cout << "EXPR: " << expr << " RES: " << opera_stack.top() << std::endl;
         return opera_stack.top();
       } else {
-        std::cout << "ERROR: invalid expr" << std::endl;
-        std::exit(1);
+        // ReportError(expr, pos, "ERROR: invalid expr");
+        // std::exit(1);
+
+        // let follow-up report error
       }
     }
     if (TestOp(expr, ')', pos)) {
@@ -137,8 +147,10 @@ double ExecExpr(const std::string &expr, size_t &pos) {
         std::cout << "SUB EXPR: " << expr.substr(pos_start, pos - pos_start) << " RES: " << opera_stack.top() << std::endl;
         return opera_stack.top();
       } else {
-        std::cout << "ERROR: invalid expr" << std::endl;
-        std::exit(1);
+        // ReportError(expr, pos, "ERROR: invalid expr");
+        // std::exit(1);
+
+        // let follow-up report error
       }
     }
 
@@ -153,7 +165,7 @@ double ExecExpr(const std::string &expr, size_t &pos) {
 
         // take )
         if (!TestOp(expr, ')', pos)) {
-          std::cerr << "ERROR: no )" << std::endl;
+          ReportError(expr, pos, "ERROR: no )");
           std::exit(1);
         }
         TakeOp(expr, op, pos);
@@ -164,7 +176,7 @@ double ExecExpr(const std::string &expr, size_t &pos) {
         opera_stack.push(opera);
         continue;
       } else {
-        std::cerr << "ERROR: expect number" << std::endl;
+        ReportError(expr, pos, "ERROR: expect number");
         std::exit(1);
       }
     }
@@ -176,14 +188,19 @@ double ExecExpr(const std::string &expr, size_t &pos) {
       op_stack.push(op);
       continue;
     } else {
-      std::cerr << "ERROR: expect operator" << std::endl;
+      ReportError(expr, pos, "ERROR: expect operator");
       std::exit(1);
     }
   }
 }
 
 int main() {
-  // handle line expr
+  std::cout << "Calculator!" << std::endl;
+  std::cout << "Expression example: " << std::endl;
+  std::cout << "  1 + 1" << std::endl;
+  std::cout << "  2 * (2 + 2)" << std::endl;
+  std::cout << "Please enter expression:" << std::endl;
+  // handle line expr loop
   for (;;) {
     std::string expr;
     std::getline(std::cin, expr);
