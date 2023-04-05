@@ -24,6 +24,10 @@
 
 > 我们在代码中以`///`开头的注释为知识性注释，`//`开头的注释为针对某一段代码的注释
 
+> 我们用`💡`标记重要思想
+
+> 我们用`🏷️`标记代码中的知识点示例
+
 ---
 
 代码列表：
@@ -40,6 +44,8 @@
    * [Map.cpp](Map.cpp)
    * [vec2.h](vec2.h)
    * [vec2.cpp](vec2.cpp)
+4. Calculator
+   * [calculator.cpp](calculator.cpp)
 
 ---
 
