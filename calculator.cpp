@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stack>
 
-void TakeBlank(const std::string &expr, double &opera, size_t &pos) {
+void TakeBlank(const std::string &expr, size_t &pos) {
   for (; pos < expr.size(); ++pos) {
     if (std::isblank(expr[pos])) {
       continue;
@@ -128,7 +128,7 @@ double EvalExpr(const std::string &expr, size_t &pos) {
     char op{};
     double opera{};
 
-    TakeBlank(expr, opera, pos);
+    TakeBlank(expr, pos);
     if (pos == expr.size()) {
       Cal(opera_stack, op_stack);
       if (opera_stack.size() == 1 && op_stack.empty()) {
