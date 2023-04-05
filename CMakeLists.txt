@@ -56,3 +56,7 @@ target_link_libraries(tetris PRIVATE ncursesw)
 ##### snake #####
 add_executable(snake snake.cpp Snake.h Snake.cpp Map.h Map.cpp vec2.h vec2.cpp)
 target_link_libraries(snake PRIVATE ncursesw)
+
+##### calculator #####
+add_executable(calculator calculator.cpp)
+target_link_libraries(calculator)
