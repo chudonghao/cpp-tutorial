@@ -74,9 +74,9 @@ int GetPri(char op) {
   }
 }
 
-void CalOnce(std::stack<double> &opera_stack, std::stack<char> &op_stack) {
+void CalTop(std::stack<double> &opera_stack, std::stack<char> &op_stack) {
   if (opera_stack.size() < 2) {
-    std::cerr << "ERROR: invalid cal once" << std::endl;
+    std::cerr << "ERROR: invalid cal top" << std::endl;
     std::exit(1);
   }
 
@@ -116,11 +116,11 @@ void CalOnce(std::stack<double> &opera_stack, std::stack<char> &op_stack) {
 
 void Cal(std::stack<double> &opera_stack, std::stack<char> &op_stack) {
   for (; 2 <= opera_stack.size();) {
-    CalOnce(opera_stack, op_stack);
+    CalTop(opera_stack, op_stack);
   }
 }
 
-double ExecExpr(const std::string &expr, size_t &pos) {
+double EvalExpr(const std::string &expr, size_t &pos) {
   size_t pos_start = pos;
   std::stack<double> opera_stack;
   std::stack<char> op_stack;
@@ -159,13 +159,13 @@ double ExecExpr(const std::string &expr, size_t &pos) {
         // take (
         TakeOp(expr, op, pos);
 
-        // cal ()
-        double tmp_result = ExecExpr(expr, pos);
+        // eval ()
+        double tmp_result = EvalExpr(expr, pos);
         opera_stack.push(tmp_result);
 
         // take )
         if (!TestOp(expr, ')', pos)) {
-          ReportError(expr, pos, "ERROR: no )");
+          ReportError(expr, pos, "ERROR: expect )");
           std::exit(1);
         }
         TakeOp(expr, op, pos);
@@ -183,7 +183,7 @@ double ExecExpr(const std::string &expr, size_t &pos) {
 
     if (TakeOp(expr, op, pos)) {
       if (!op_stack.empty() && GetPri(op) <= GetPri(op_stack.top())) {
-        CalOnce(opera_stack, op_stack);
+        CalTop(opera_stack, op_stack);
       }
       op_stack.push(op);
       continue;
@@ -212,9 +212,9 @@ int main() {
       continue;
     }
 
-    // exec expr
+    // eval expr
     size_t pos{};
-    ExecExpr(expr, pos);
+    EvalExpr(expr, pos);
   }
   return 0;
 }
